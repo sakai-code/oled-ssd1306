@@ -210,6 +210,85 @@ namespace  OLED {
 
         }
     }
+    export function unchar(c: string, col: number, row: number, color: number = 1) {
+        let p = (Math.min(127, Math.max(c.charCodeAt(0), 32)) - 32) * 5
+        let m = 0
+        let ind = col + row * 128 + 1
+
+
+        if(_DOUBLE)
+        {
+
+            for(let i = 0; i < 5; i++)
+            {
+                let l = 0
+                for(let j = 0; j < 8; j++)
+                {
+                     if(color > 0 ? Font_5x7[p + i]^0 & (1 << j) : !(Font_5x7[p + i]^0 & (1 << j)))
+                    {
+                        pixel(col + m, row * 8 + l,0)
+                        pixel(col + m, row * 8 + l + 1,0)
+
+                        pixel(col + m + 1, row * 8 + l,0)
+                        pixel(col + m + 1, row * 8 + l + 1,0)
+                    }
+
+                    l += 2
+                }
+                m += 2
+            }
+
+            let l = 0
+            for(let j = 0; j < 8; j++)
+            {
+                if(color == 0)
+                {
+                    pixel(col + 10, row * 8 + l,0)
+                    pixel(col + 10, row * 8 + l + 1,0)
+
+                    pixel(col + 11, row * 8 + l,0)
+                    pixel(col + 11, row * 8 + l + 1,0)
+                }
+
+                l += 2
+            }
+
+        }else{
+
+            let j = 0
+
+            for (let i = 0; i < 5; i++) {
+                _screen[ind + i] = (color > 0) ? Font_5x7[p + i]^0 : Font_5x7[p + i]^0 ^ 0xFF               
+                if(_ZOOM){
+                    _buf13[j + 1] = 0x00
+                    _buf13[j + 2] = 0x00
+
+                }else{
+                    _buf7[i + 1] =0x00
+                }
+
+                j += 2
+            }
+
+            _screen[ind + 5] = (color > 0) ? 0 : 0xFF
+
+            if(_ZOOM)
+            {
+            _buf13[12] = 0x00
+            }else{
+            _buf7[6] = 0x00
+            }
+            
+            set_pos(col, row)
+            if(_ZOOM)
+            {
+                pins.i2cWriteBuffer(_I2CAddr, _buf13)
+            }else{
+                pins.i2cWriteBuffer(_I2CAddr, _buf7)
+            }
+
+        }
+    }
 
     /**
      * show text at a specific location on screen. Note - to remove the text print an empty string ("  ") to the same location.
@@ -238,6 +317,25 @@ namespace  OLED {
 
         if(_DOUBLE)draw(1)
     }
+    //%block 
+    export function unshowString(s: string, col: number, row: number, color: number = 1) {
+        let steps = 0
+        if(_DOUBLE)
+        {
+            steps = 12
+            row *= 2
+        }else{
+            steps = 6
+        }
+        for (let n = 0; n < s.length; n++) {
+            unchar(s.charAt(n), col, row, color)
+            col += steps
+
+        }
+
+        if(_DOUBLE)draw(1)
+    }
+
 
     /**
      * show a number at a specific location on screen. Note - to remove the number print an empty string ("  ") to the same location.
