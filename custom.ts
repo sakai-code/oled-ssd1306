@@ -116,73 +116,10 @@ namespace  OLED {
         return set
 
     }
-    function writegraph(n: number,x:number,y:number){
-         showNumber(n ,90, 7, 1)
-         pixel(x,y,1)
-             
-
-        
-
-    }
-     let initcount = 0
+    
+    let initcount = 0
     let count = 0
-    function returnnum(n:number,h:number,l:number){
-         let point = Math.map(n, h, l, 1, 64)
-        
-
-        let x = (h+l)/2
-
-        if (initcount == 0){
-            
-            
-        showNumber(h, 0, 0, 1)
-        showNumber(x, 0, 4, 1)
-        showNumber(l, 0, 7, 1)
-        point = 64 - point
-        showNumber(point, 110, 7,1)
-       
-        pixel(count, point,1)
-        count += 1
-        initcount = 1
-        set += 1
-        
-
-
-
-        }else{
-            initcount += 1
-            if(handan()==1){
-                writegraph(n,count,point)
-                if (count == 128) {
-                count= 0
-                OLED.clear()
-                OLED.showNumber(h, 0, 0, 1)
-                OLED.showNumber(x, 0, 4, 1)
-                OLED.showNumber(l, 0, 7, 1)
-                }
-                count +=1
-                graph(n,h,l)
-                basic.pause(1)
-                
-                
-            }
-           
-            
-            
-            
-            
-            
-            basic.pause(1)
-        }
-        graph(n,h,l)
-        
-           
-            
-
-
-        
-
-    }
+   
  
 
 
@@ -191,15 +128,14 @@ namespace  OLED {
      * param h 入力する最大の値　0の時自動で255に設定されます
      * param l 入力する最大の値　0の時自動で-255に設定されます
      */
-    //%block="グラフを書く　入力:|$n| 最大値：|$h| 最低値|$l | (ずっとループの中に置く))"
+    //%block="グラフを書く　入力:|$n| 最大値：|$h| 最低値|$l | (ずっとブロック内に置く)"
+    //% h.defl=255
+    //% l.defl=-255
     
     export function graph(n:number,h:number,l:number):void {
-        if (h==0 && l==0){
-            h = 255
-            l= -255
-
-        }
-        let point = Math.map(n, h, l, 1, 64)
+       
+        let point = Math.map(n,l,h, 1, 64)
+        point = 64 - point
         
 
         let x = (h+l)/2
@@ -210,8 +146,8 @@ namespace  OLED {
         showNumber(h, 0, 0, 1)
         showNumber(x, 0, 4, 1)
         showNumber(l, 0, 7, 1)
-        point = 64 - point
-        showNumber(point, 90, 7,1)
+        
+        showNumber(count, 100, 7,1)
        
         pixel(count, point,1)
         count += 1
@@ -222,7 +158,7 @@ namespace  OLED {
 
 
         }else{
-            initcount += 1
+            initcount = 1
            if(handan()==1){
                 showNumber(n ,100, 7, 1)
                 pixel(count,point,1)
@@ -247,7 +183,7 @@ namespace  OLED {
             
             
             
-            basic.pause(1)
+           
         }
       
         
@@ -492,7 +428,7 @@ namespace  OLED {
      * show text at a specific location on screen. Note - to remove the text print an empty string ("  ") to the same location.
      */
     //% blockId="OLED12864_I2C_SHOWSTRING" block="文字列%s|を 列 %col|行 %row|色　%color　で表示"
-    //% s.defl='Hello'
+    //% s.defl="Hello"
     //% col.max=120 col.min=0 col.defl=0
     //% row.max=7 row.min=0 row.defl=0
     //% color.max=1 color.min=0 color.defl=1
@@ -517,8 +453,9 @@ namespace  OLED {
 
         if(_DOUBLE)draw(1)
     }
-    //%block 
-    export function unshowString(s: string, col: number, row: number, color: number = 1) {
+
+   
+　 function unshowString(s: string, col: number, row: number, color: number = 1) {
        
         let steps = 0
         if(_DOUBLE)
@@ -583,7 +520,7 @@ namespace  OLED {
      * print text to screen
      */
     //% block="文字列　%s|を(次に置く文字を改行するか選択： %newline　)して表示"
-    //% s.defl="string"
+    //% s.defl="HELLO!"
     //% newline.defl=true
     //% weight=88 blockGap=8 inlineInputMode=inline
     //% group="Scrolling Display"
