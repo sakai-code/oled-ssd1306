@@ -4,7 +4,7 @@
 const Font_5x7 = hex`000000000000005F00000007000700147F147F14242A072A12231308646237495522500005030000001C2241000041221C00082A1C2A0808083E080800503000000808080808006060000020100804023E5149453E00427F400042615149462141454B311814127F1027454545393C4A49493001710905033649494936064949291E003636000000563600000008142241141414141441221408000201510906324979413E7E1111117E7F494949363E414141227F4141221C7F494949417F090901013E414151327F0808087F00417F41002040413F017F081422417F404040407F0204027F7F0408107F3E4141413E7F090909063E4151215E7F09192946464949493101017F01013F4040403F1F2040201F7F2018207F63140814630304780403615149454300007F4141020408102041417F000004020102044040404040000102040020545454787F484444383844444420384444487F3854545418087E090102081454543C7F0804047800447D40002040443D00007F10284400417F40007C041804787C0804047838444444387C14141408081414187C7C080404084854545420043F4440203C4040207C1C2040201C3C4030403C44281028440C5050503C4464544C44000836410000007F000000413608000201020402`
 
 //% color=#27b0ba icon="\uf26c" block="OD01"
-//% groups='["Scrolling Display", "Positional Display", "Drawing", "Optional"]'
+//% groups='["Scrolling Display", "Positional Display", "Drawing", "Optional","graph"]'
 namespace  OLED {
     export enum Display {
         //% block="ON"
@@ -86,6 +86,7 @@ namespace  OLED {
 
     //% block="文字を拡大"
     //% weight=60 blockGap=8
+    //% group="Optional"
     export function zoomIn() {
         _ZOOM = 1
        cmd2(0xd6, _ZOOM)
@@ -93,6 +94,7 @@ namespace  OLED {
 
     //% block="文字を縮小"
     //% weight=60 blockGap=8
+    //% group="Optional"
     export function zoomOut() {
         _ZOOM = 0
         cmd2(0xd6, _ZOOM)
@@ -100,6 +102,7 @@ namespace  OLED {
 
     //% block="文字サイズを大にする"
     //% weight=60 blockGap=8
+    //% group="Optional"
     export function set2X()
     {
         _DOUBLE = 1
@@ -107,6 +110,7 @@ namespace  OLED {
 
     //% block="文字サイズを小にする（デフォルト）"
     //% weight=60 blockGap=8
+    //% group="Optional"
     export function set1X()
     {
         _DOUBLE = 0
@@ -128,6 +132,7 @@ namespace  OLED {
      * param h 入力する最大の値　0の時自動で255に設定されます
      * param l 入力する最大の値　0の時自動で-255に設定されます
      */
+    //% group="graph"
     //%block="グラフを書く　入力:|$n| 最大値：|$h| 最低値|$l | (ずっとブロック内に置く)"
     //% h.defl=255
     //% l.defl=-255
@@ -223,6 +228,7 @@ namespace  OLED {
      * グラフを停止
      */
     //%block="グラフを停止する"
+    //% group="graph"
     export function stopgraph(){
         set = 0
 
@@ -231,6 +237,7 @@ namespace  OLED {
      * グラフを再開
      */
     //%block="グラフを再開する"
+    //% group="graph"
     export function regraph(){
         set = 1
 
