@@ -17,6 +17,11 @@ namespace  OLED {
     const MIN_Y = 0
     const MAX_X = 127
     const MAX_Y = 63
+    let set = 0
+    let coled = 0
+    let rowed = 0
+    let lastnum = 0
+    let lasts = ""
 
     let _I2CAddr = 60
     let _screen = pins.createBuffer(1025)
@@ -67,6 +72,8 @@ namespace  OLED {
         return d
     }
 
+    
+
     /**
      * draw / refresh screen
      */
@@ -104,6 +111,196 @@ namespace  OLED {
     {
         _DOUBLE = 0
     }
+    
+    function handan():number{
+        return set
+
+    }
+    function writegraph(n: number,x:number,y:number){
+         showNumber(n ,90, 7, 1)
+         pixel(x,y,1)
+             
+
+        
+
+    }
+     let initcount = 0
+    let count = 0
+    function returnnum(n:number,h:number,l:number){
+         let point = Math.map(n, h, l, 1, 64)
+        
+
+        let x = (h+l)/2
+
+        if (initcount == 0){
+            
+            
+        showNumber(h, 0, 0, 1)
+        showNumber(x, 0, 4, 1)
+        showNumber(l, 0, 7, 1)
+        point = 64 - point
+        showNumber(point, 110, 7,1)
+       
+        pixel(count, point,1)
+        count += 1
+        initcount = 1
+        set += 1
+        
+
+
+
+        }else{
+            initcount += 1
+            if(handan()==1){
+                writegraph(n,count,point)
+                if (count == 128) {
+                count= 0
+                OLED.clear()
+                OLED.showNumber(h, 0, 0, 1)
+                OLED.showNumber(x, 0, 4, 1)
+                OLED.showNumber(l, 0, 7, 1)
+                }
+                count +=1
+                graph(n,h,l)
+                basic.pause(1)
+                
+                
+            }
+           
+            
+            
+            
+            
+            
+            basic.pause(1)
+        }
+        graph(n,h,l)
+        
+           
+            
+
+
+        
+
+    }
+ 
+
+
+
+    /**
+     * param h 入力する最大の値　0の時自動で255に設定されます
+     * param l 入力する最大の値　0の時自動で-255に設定されます
+     */
+    //%block="グラフを書く　入力:|$n| 最大値：|$h| 最低値|$l | (ずっとループの中に置く))"
+    
+    export function graph(n:number,h:number,l:number):void {
+        if (h==0 && l==0){
+            h = 255
+            l= -255
+
+        }
+        let point = Math.map(n, h, l, 1, 64)
+        
+
+        let x = (h+l)/2
+
+        if (initcount == 0){
+            
+            
+        showNumber(h, 0, 0, 1)
+        showNumber(x, 0, 4, 1)
+        showNumber(l, 0, 7, 1)
+        point = 64 - point
+        showNumber(point, 90, 7,1)
+       
+        pixel(count, point,1)
+        count += 1
+        initcount = 1
+        set = 1 
+        
+
+
+
+        }else{
+            initcount += 1
+           if(handan()==1){
+                showNumber(n ,100, 7, 1)
+                pixel(count,point,1)
+
+                
+                if (count == 128) {
+                count= 0
+                clear()
+                showNumber(h, 0, 0, 1)
+                showNumber(x, 0, 4, 1)
+                showNumber(l, 0, 7, 1)
+                }
+                count +=1
+             
+                basic.pause(1)
+                
+                
+            }
+           
+            
+            
+            
+            
+            
+            basic.pause(1)
+        }
+      
+        
+           
+        
+       
+           
+            
+            
+            
+            
+            
+          
+           
+            
+
+
+
+               
+
+}
+            
+
+
+
+
+
+        
+
+        
+
+       
+
+        
+    
+    /**
+     * グラフを停止
+     */
+    //%block="グラフを停止する"
+    export function stopgraph(){
+        set = 0
+
+    }
+     /**
+     * グラフを再開
+     */
+    //%block="グラフを再開する"
+    export function regraph(){
+        set = 1
+
+    }
+    
+
 
     /**
      * set a single pixel to be on (color = 1) or off (color = 0)
@@ -210,6 +407,7 @@ namespace  OLED {
 
         }
     }
+
     export function unchar(c: string, col: number, row: number, color: number = 1) {
         let p = (Math.min(127, Math.max(c.charCodeAt(0), 32)) - 32) * 5
         let m = 0
@@ -301,6 +499,8 @@ namespace  OLED {
     //% weight=50 blockGap=8 inlineInputMode=inline
     //% group="Positional Display"
     export function showString(s: string, col: number, row: number, color: number = 1) {
+       
+    
         let steps = 0
         if(_DOUBLE)
         {
@@ -319,6 +519,7 @@ namespace  OLED {
     }
     //%block 
     export function unshowString(s: string, col: number, row: number, color: number = 1) {
+       
         let steps = 0
         if(_DOUBLE)
         {
@@ -334,6 +535,7 @@ namespace  OLED {
         }
 
         if(_DOUBLE)draw(1)
+        
     }
 
 
@@ -348,7 +550,15 @@ namespace  OLED {
     //% weight=45 blockGap=8 inlineInputMode=inline
     //% group="Positional Display"
     export function showNumber(num: number, col: number, row: number, color: number = 1) {
+        if( coled == col && rowed == row){
+            unshowString(lasts, col, row,1)
+
+
+        }
         showString(num.toString(), col, row, color)
+        lasts = num.toString()
+        coled = col
+        rowed = row
     }
 
     function scroll() {
@@ -367,6 +577,7 @@ namespace  OLED {
             draw(1)
         }
     }
+     
 
     /**
      * print text to screen
