@@ -84,7 +84,7 @@ namespace  OLED {
         }
     }
 
-    //% block="文字を拡大"
+    //% block="表示を拡大"
     //% weight=60 blockGap=8
     //% group="Optional"
     export function zoomIn() {
@@ -92,7 +92,7 @@ namespace  OLED {
        cmd2(0xd6, _ZOOM)
     }
 
-    //% block="文字を縮小"
+    //% block="表示を縮小"
     //% weight=60 blockGap=8
     //% group="Optional"
     export function zoomOut() {
@@ -133,9 +133,10 @@ namespace  OLED {
      * param l 入力する最大の値　0の時自動で-255に設定されます
      */
     //% group="graph"
-    //%block="グラフを書く　入力:|$n| 最大値：|$h| 最低値|$l | (ずっとブロック内に置く)"
+    //%block="グラフを書く　入力:|$n| 最大値：|$h| 最小値|$l | (ずっとブロック内に置く)"
     //% h.defl=255
     //% l.defl=-255
+    //% weight=60
     
     export function graph(n:number,h:number,l:number):void {
        
