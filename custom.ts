@@ -482,6 +482,9 @@ namespace  OLED {
         if(_DOUBLE)draw(1)
         
     }
+    
+   
+
 
 
     /**
@@ -517,8 +520,14 @@ namespace  OLED {
         }
         if (_cy > 7) {
             _cy = 7
-            _screen.shift(128)
+            if(_DOUBLE){
+            _screen.shift(256)　//ここで_DOUBLEが１の時正しくスクロールしないため改良した
             _screen[0] = 0x40
+
+            }else{
+            _screen.shift(128)　//ここで_DOUBLEが１の時正しくスクロールしないため改良した
+            _screen[0] = 0x40
+            }
             draw(1)
         }
     }
@@ -542,6 +551,7 @@ namespace  OLED {
         }
     
         for (let n = 0; n < s.length; n++) {
+
             char(s.charAt(n), _cx, _cy, 1)
             _cx += steps
             if (_cx > 120) {
