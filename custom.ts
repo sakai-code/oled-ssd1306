@@ -38,6 +38,7 @@ namespace  OLED {
 
     let _ZOOM = 0
     let _DOUBLE = 0
+    let flag = 0
 
     function cmd1(d: number) {
         let n = d % 256;
@@ -523,8 +524,11 @@ namespace  OLED {
             if(_DOUBLE){
             _screen.shift(256)　//ここで_DOUBLEが１の時正しくスクロールしないため改良した
             _screen[0] = 0x40
+            flag = 1
 
             }else{
+                flag = 0 
+               
             _screen.shift(128)　//ここで_DOUBLEが１の時正しくスクロールしないため改良した
             _screen[0] = 0x40
             }
@@ -551,8 +555,11 @@ namespace  OLED {
         }
     
         for (let n = 0; n < s.length; n++) {
+            if(flag == 1){
+                char(s.charAt(n), _cx, _cy-1, 1) //ここを文字サイズが大の時正しく改行できるよう改良
 
-            char(s.charAt(n), _cx, _cy, 1)
+            }else{
+            char(s.charAt(n), _cx, _cy, 1)}
             _cx += steps
             if (_cx > 120) {
                 scroll()
