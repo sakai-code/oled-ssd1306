@@ -1,7 +1,7 @@
 {
     "name": "OLED-ssd1306",
     "version": "0.0.5",
-    "description": "",
+    "description": "SSd1306 for microbit makecode",
     "dependencies": {
         "core": "*",
         "radio": "*",
@@ -11,7 +11,8 @@
         "main.blocks",
         "main.ts",
         "README.md",
-        "custom.ts"
+        "custom.ts",
+        "_locales/ja/README.md"
     ],
     "testFiles": [
         "test.ts"
@@ -19,5 +20,5 @@
     "supportedTargets": [
         "microbit"
     ],
-    "preferredEditor": "blocksprj"
+    "preferredEditor": "tsprj"
 }

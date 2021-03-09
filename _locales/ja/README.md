@@ -1,8 +1,6 @@
 
 > Open this page at [https://sakai-code.github.io/oled-ssd1306/](https://sakai-code.github.io/oled-ssd1306/)
 
-this extention copy and modified from https://github.com/xinabox/pxt-Of路m
-
 ## Use as Extension
 
 This repository can be added as an **extension** in MakeCode.
