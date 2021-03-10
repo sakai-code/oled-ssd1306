@@ -134,7 +134,7 @@ namespace  OLED {
      * param l 入力する最大の値　0の時自動で-255に設定されます
      */
     //% group="graph"
-    //%block="グラフを書く　入力:|$n| 最大値：|$h| 最小値|$l | (ずっとブロック内に置く)"
+    //%block="グラフを書く　入力:|$n| 最大値：|$h| 最小値|$l | (ずっとブロック内に置くことで動作します)"
     //% h.defl=255
     //% l.defl=-255
     //% weight=60
@@ -250,7 +250,7 @@ namespace  OLED {
     /**
      * set a single pixel to be on (color = 1) or off (color = 0)
      */
-    //% blockId="OLED12864_I2C_PIXEL" block="点を x %x|y %y| 色　%color　で表示"
+    //% blockId="OLED12864_I2C_PIXEL" block="点を x %x|y %y| パターン　%color　で表示"
     //% x.max=127 x.min=0 x.defl=0
     //% y.max=63 y.min=0 y.defl=0
     //% color.max=1 color.min=0 color.defl=1
@@ -438,7 +438,7 @@ namespace  OLED {
     /**
      * show text at a specific location on screen. Note - to remove the text print an empty string ("  ") to the same location.
      */
-    //% blockId="OLED12864_I2C_SHOWSTRING" block="文字列%s|を 列 %col|行 %row|色　%color　で表示"
+    //% blockId="OLED12864_I2C_SHOWSTRING" block="文字列%s|を横位置%col|(0~120)|縦行目%row|(0~7) パターン　%color|で表示"
     //% s.defl="Hello"
     //% col.max=120 col.min=0 col.defl=0
     //% row.max=7 row.min=0 row.defl=0
@@ -493,7 +493,7 @@ namespace  OLED {
     /**
      * show a number at a specific location on screen. Note - to remove the number print an empty string ("  ") to the same location.
      */
-    //% blockId="OLED12864_I2C_NUMBER" block="数字 %num|aを 列 %col|行 %row|色 %color　で表示"
+    //% blockId="OLED12864_I2C_NUMBER" block="数字 %num|を横位置%col|(0~120)|縦行目%row|(0~7)　パターン　%color|で表示"
     //% num.defl=100
     //% col.max=120 col.min=0 col.defl=0
     //% row.max=7 row.min=0 row.defl=0
@@ -542,13 +542,24 @@ namespace  OLED {
     /**
      * print text to screen
      */
-    //% block="文字列　%s|を(次に置く文字を改行するか選択： %newline　)して表示"
+    //% block="文字列　%s|を(改行して：|%newline|)表示"
     //% s.defl="HELLO!"
     //% newline.defl=true
     //% weight=88 blockGap=8 inlineInputMode=inline
     //% group="Scrolling Display"
     export function printString(s: string, newline: boolean = true) {
         let steps = 0
+       if (_cy == 0 && _cx == 0){
+
+
+
+       }else{
+           if(newline == true){
+               scroll()
+           }
+
+       }
+      
 
         if(_DOUBLE)
         {
@@ -583,9 +594,7 @@ namespace  OLED {
             }
             
         }
-        if (newline) {
-            scroll()
-        }
+      
         
         if(_DOUBLE)draw(1)
     }
@@ -593,7 +602,7 @@ namespace  OLED {
     /**
     * print a number to screen 
     */
-    //% block="数字 %num|を（次に置く文字を改行するか選択： %newline　)して表示"
+    //% block="数字 %num|を（改行して：|%newline|)表示"
     //% s.defl="0"
     //% newline.defl=true
     //% weight=86 blockGap=8 inlineInputMode=inline
@@ -605,7 +614,7 @@ namespace  OLED {
     /**
      * draw a horizontal line. Use color = 1 to draw the line and color = 0 to erase it.
      */
-    //% blockId="OLED12864_I2C_HLINE" block="横線 x %x|y %y|から長さ(pixel) %len|　色 %colorで表示"
+    //% blockId="OLED12864_I2C_HLINE" block="横線を x %x|y %y|から長さ(pixel) %len|　色 %colorで表示"
     //% x.max=127 x.min=0 x.defl=0
     //% y.max=63 y.min=0 y.defl=0
     //% len.max=128 len.min=1 len.defl=16
@@ -647,7 +656,7 @@ namespace  OLED {
     /**
      * draw a rectangle. Use color = 1 to draw the rectangle and color = 0 to erase it.
      */
-    //% blockId="OLED12864_I2C_RECT" block="四角形を始点 x1 %x1|y1 %y1|終点　x2 %x2|y2 %y2|色 %color　で表示"
+    //% blockId="OLED12864_I2C_RECT" block="四角形を左上始点 x1 %x1|y1 %y1|右下終点　x2 %x2|y2 %y2|色 %color　で表示"
     //% color.defl=1
     //% weight=20 blockGap=8 inlineInputMode=inline
     //% group="Drawing"
@@ -680,7 +689,7 @@ namespace  OLED {
     /**
      * clear screen
      */
-    //% blockId="OLED12864_I2C_CLEAR" block="画面を初期化する"
+    //% blockId="OLED12864_I2C_CLEAR" block="画面を全消去する"
     //% weight=85 blockGap=8
     //% group="Scrolling Display"
     export function clear() {
