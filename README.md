@@ -1,15 +1,14 @@
 
 > Open this page at [https://sakai-code.github.io/oled-ssd1306/](https://sakai-code.github.io/oled-ssd1306/)
 
-this extention copy and modified from https://github.com/xinabox/pxt-Of路m
+this extention copy and modified from　xina box
 
 ![OLED_page-0001](https://user-images.githubusercontent.com/76587090/111246162-249dfb80-8649-11eb-83c3-ae6274252c3a.jpg)
 ![OLED_page-0002](https://user-images.githubusercontent.com/76587090/111246165-25cf2880-8649-11eb-9220-2e27185a1a48.jpg)
-![OLED_page-0003](https://user-images.githubusercontent.com/76587090/111246166-25cf2880-8649-11eb-97e2-89b26cd5025b.jpg)
 
 **https://github.com/sakai-code/oled-ssd1306**
 
-
+![OLED_page-0003](https://user-images.githubusercontent.com/76587090/111246166-25cf2880-8649-11eb-97e2-89b26cd5025b.jpg)
 ![OLED_page-0004](https://user-images.githubusercontent.com/76587090/111246167-2667bf00-8649-11eb-9908-17c47e147d01.jpg)
 ![OLED_page-0005](https://user-images.githubusercontent.com/76587090/111246169-2667bf00-8649-11eb-9b97-ae68ea9741a8.jpg)
 ![OLED_page-0006](https://user-images.githubusercontent.com/76587090/111246171-27005580-8649-11eb-9804-37d3e6cac62a.jpg)
