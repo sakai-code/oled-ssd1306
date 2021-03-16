@@ -1,7 +1,7 @@
 
 > Open this page at [https://sakai-code.github.io/oled-ssd1306/](https://sakai-code.github.io/oled-ssd1306/)
 
-this extention copy and modified from　xina box
+this extention copy and modified from　xina box/pxtod01
 
 ![OLED_page-0001](https://user-images.githubusercontent.com/76587090/111246162-249dfb80-8649-11eb-83c3-ae6274252c3a.jpg)
 ![OLED_page-0002](https://user-images.githubusercontent.com/76587090/111246165-25cf2880-8649-11eb-9220-2e27185a1a48.jpg)
