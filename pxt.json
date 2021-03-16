@@ -1,6 +1,6 @@
 {
     "name": "OLED-ssd1306",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "description": "SSd1306 for microbit makecode",
     "dependencies": {
         "core": "*",
