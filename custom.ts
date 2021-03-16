@@ -250,7 +250,7 @@ namespace  OLED {
     /**
      * set a single pixel to be on (color = 1) or off (color = 0)
      */
-    //% blockId="OLED12864_I2C_PIXEL" block="点を x %x|y %y| パターン　%color　で表示"
+    //% blockId="OLED12864_I2C_PIXEL" block="点を x %x|y %y| 色　%color　で表示"
     //% x.max=127 x.min=0 x.defl=0
     //% y.max=63 y.min=0 y.defl=0
     //% color.max=1 color.min=0 color.defl=1
